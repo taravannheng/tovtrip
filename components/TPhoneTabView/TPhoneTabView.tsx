@@ -20,6 +20,7 @@ const TEmailTabView = ({ onToggleSnackBar }: { onToggleSnackBar: any }) => {
   const customStyles = styles();
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
+  const isValidForm = !!phone && !!password;
 
   const submitHandler = async () => {
     try {
@@ -51,7 +52,7 @@ const TEmailTabView = ({ onToggleSnackBar }: { onToggleSnackBar: any }) => {
       <View style={customStyles.forgotPassword}>
         <Button mode="text">Forgot Password</Button>
       </View>
-      <TSubmitButton onPress={submitHandler} />
+      <TSubmitButton onPress={submitHandler} disabled={!isValidForm} />
     </View>
   );
 };

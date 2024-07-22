@@ -7,9 +7,11 @@ import { GestureResponderEvent } from "react-native";
 import styles from "./TSubmitButton.styles";
 
 const TSubmitButton = ({
+  disabled,
   onPress,
 }: {
   onPress: (e: GestureResponderEvent) => void;
+  disabled?: boolean;
 }) => {
   const customStyles = styles();
 
@@ -21,6 +23,7 @@ const TSubmitButton = ({
           mode="contained"
           labelStyle={{ fontSize: 16 }}
           onPress={onPress}
+          disabled={disabled}
         >
           <Text>Continue</Text>
         </Button>
