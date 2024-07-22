@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View } from "react-native";
-import { Button, Icon, Text, useTheme } from "react-native-paper";
+import { Button, Snackbar, useTheme } from "react-native-paper";
 import { router } from "expo-router";
 
 // component imports
@@ -15,21 +15,25 @@ import { setAccessToken } from "../../services/tokenService";
 // style import
 import styles from "./TEmailTabView.styles";
 
-const TEmailTabView = () => {
+const TEmailTabView = ({ onToggleSnackBar }: { onToggleSnackBar: any }) => {
   const theme = useTheme();
   const customStyles = styles();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const submitHandler = async () => {
-    const response = await signInWithEmail(email, password);
-    const accessToken = response["data"]["accessToken"];
+    try {
+      const response = await signInWithEmail(email, password);
+      const accessToken = response["data"]["accessToken"];
 
-    // store access token locally
-    setAccessToken(accessToken);
+      if (accessToken) {
+        // store access token locally
+        setAccessToken(accessToken);
 
-    if (accessToken) {
-      router.replace("/profile");
+        router.replace("/profile");
+      }
+    } catch (e) {
+      onToggleSnackBar();
     }
   };
 

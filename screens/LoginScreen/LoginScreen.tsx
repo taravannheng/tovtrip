@@ -1,6 +1,6 @@
 import * as React from "react";
 import { View } from "react-native";
-import { Appbar } from "react-native-paper";
+import { Appbar, Snackbar } from "react-native-paper";
 import {
   TabsProvider,
   Tabs,
@@ -15,6 +15,10 @@ import TEmailTabView from "../../components/TEmailTabView/TEmailTabView";
 import TPhoneTabView from "../../components/TPhoneTabView/TPhoneTabView";
 
 const LoginScreen = () => {
+  const [visible, setVisible] = React.useState(false);
+  const onToggleSnackBar = () => setVisible(!visible);
+  const onDismissSnackBar = () => setVisible(false);
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <Appbar.Header>
@@ -24,16 +28,27 @@ const LoginScreen = () => {
         <Tabs>
           <TabScreen label="Email">
             <View>
-              <TEmailTabView></TEmailTabView>
+              <TEmailTabView
+                onToggleSnackBar={onToggleSnackBar}
+              ></TEmailTabView>
             </View>
           </TabScreen>
           <TabScreen label="Phone">
             <View>
-              <TPhoneTabView></TPhoneTabView>
+              <TPhoneTabView
+                onToggleSnackBar={onToggleSnackBar}
+              ></TPhoneTabView>
             </View>
           </TabScreen>
         </Tabs>
       </TabsProvider>
+      <Snackbar
+        visible={visible}
+        onDismiss={onDismissSnackBar}
+        wrapperStyle={{ bottom: 0 }}
+      >
+        Email or Password is incorrect. Please try again.
+      </Snackbar>
     </SafeAreaView>
   );
 };
