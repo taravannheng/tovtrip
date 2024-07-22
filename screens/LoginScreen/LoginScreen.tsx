@@ -47,7 +47,7 @@ const LoginScreen = () => {
         onDismiss={onDismissSnackBar}
         wrapperStyle={{ bottom: 0 }}
       >
-        Email or Password is incorrect. Please try again.
+        Invalid Credentials. Please try again.
       </Snackbar>
     </SafeAreaView>
   );
